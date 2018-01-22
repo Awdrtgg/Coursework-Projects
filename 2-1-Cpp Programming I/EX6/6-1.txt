@@ -1,0 +1,11 @@
+This is an int:15
+This is a long int:1000000000
+This is an unsigned int:15
+This is a float:1.52623
+This is a double:1.52623
+for the value 15,
+Dec:15
+Hex:f
+Oct:17
+precision(5) for 1.526:1.5262
+****kindle
