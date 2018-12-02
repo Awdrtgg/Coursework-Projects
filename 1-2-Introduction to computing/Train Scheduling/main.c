@@ -6,7 +6,6 @@
 
 HANDLE thread[6];
 
-///*
 void main()
 {
 	//清空记录文件
