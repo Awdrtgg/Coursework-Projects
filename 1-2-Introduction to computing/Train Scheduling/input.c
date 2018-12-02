@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "train.h"
 
-
 //用户输入改变火车状态的线程， a为火车加速， s为火车减速， p为火车停靠， c为火车继续运行
 //命令行输入
 unsigned int __stdcall Input_Command(void* pArgument)
