@@ -27,12 +27,12 @@ IMAGE img[3][4][4];
 
 IMAGE imga1, imga2, imgb1, imgb2, imgc1, imgc2;
 
-//·½Ïò
+//æ–¹å‘
 const double direction[4][2] = {
 	{ 0.0, -1.0 },{ 1.0, 0.0 },{ 0.0, 1.0 },{ -1.0, 0.0 }
 };
 
-//×Ô¶¯ÉèÖÃ¶à½Ú³µÏá
+//è‡ªåŠ¨è®¾ç½®å¤šèŠ‚è½¦å¢
 void setMoreCarriage(Train *strain)
 {
 	int i = 1; 
@@ -49,15 +49,15 @@ void setMoreCarriage(Train *strain)
 	}
 }
 
-//ÏÔÊ¾Ãû³Æ£¬ÊäÈëÖµ£¬·µ»ØÕûÊı
+//æ˜¾ç¤ºåç§°ï¼Œè¾“å…¥å€¼ï¼Œè¿”å›æ•´æ•°
 int input_i(char *name, int min, int max) {
 	int size = 0;
 	clock_t wastestart = 0, wastefinish = 0;
 	double duration = 0.0;
 	int i = 0;
 
-	printf("%s(·¶Î§:%dÓë%dÖ®¼ä):", name, min, max);
-	//µÈ´ıÓÃ»§ÊäÈë
+	printf("%s(èŒƒå›´:%dä¸%dä¹‹é—´):", name, min, max);
+	//ç­‰å¾…ç”¨æˆ·è¾“å…¥
 	fflush(stdin);
 	wastestart = clock();
 	while (duration < MAX_WAITING_TIME) {
@@ -70,9 +70,9 @@ int input_i(char *name, int min, int max) {
 		duration = (double)(wastefinish - wastestart) / CLOCKS_PER_SEC;
 	}
 
-	//ÅĞ¶ÏÓÃ»§ÊÇ·ñÊäÈëºÏÊÊ
+	//åˆ¤æ–­ç”¨æˆ·æ˜¯å¦è¾“å…¥åˆé€‚
 	if (i == 0) {
-		printf("\aÓÃ»§Ã»ÓĞÊäÈëÄÚÈİ,Ê¹ÓÃÄ¬ÈÏÉèÖÃ\n");
+		printf("\aç”¨æˆ·æ²¡æœ‰è¾“å…¥å†…å®¹,ä½¿ç”¨é»˜è®¤è®¾ç½®\n");
 		return -1;
 	}
 
@@ -83,22 +83,22 @@ int input_i(char *name, int min, int max) {
 			return size;
 		}
 		else {
-			printf("\aÊäÈëÖµ´óÓÚ¹æ¶¨Öµ\n");
+			printf("\aè¾“å…¥å€¼å¤§äºè§„å®šå€¼\n");
 			fflush(stdin);	
 			return input_i(name, min, max);
 		}
 	}
 }
 
-//ÏÔÊ¾Ãû³Æ£¬ÊäÈëÖµ£¬·µ»ØĞ¡Êı
+//æ˜¾ç¤ºåç§°ï¼Œè¾“å…¥å€¼ï¼Œè¿”å›å°æ•°
 double input_f(char *name, int min, int max) {
 	double size = 0;
 	clock_t wastestart = 0, wastefinish = 0;
 	double duration = 0.0;
 	int i = 0;
 
-	printf("%s(·¶Î§:%dÓë%dÖ®¼ä):", name, min, max);
-	//µÈ´ıÓÃ»§ÊäÈë
+	printf("%s(èŒƒå›´:%dä¸%dä¹‹é—´):", name, min, max);
+	//ç­‰å¾…ç”¨æˆ·è¾“å…¥
 	fflush(stdin);
 	wastestart = clock();
 	while (duration < MAX_WAITING_TIME) {
@@ -111,9 +111,9 @@ double input_f(char *name, int min, int max) {
 		duration = (double)(wastefinish - wastestart) / CLOCKS_PER_SEC;
 	}
 
-	//ÅĞ¶ÏÓÃ»§ÊÇ·ñÊäÈëºÏÊÊ
+	//åˆ¤æ–­ç”¨æˆ·æ˜¯å¦è¾“å…¥åˆé€‚
 	if (i == 0) {
-		printf("\aÓÃ»§Ã»ÓĞÊäÈëÄÚÈİ,Ê¹ÓÃÄ¬ÈÏÉèÖÃ\n");
+		printf("\aç”¨æˆ·æ²¡æœ‰è¾“å…¥å†…å®¹,ä½¿ç”¨é»˜è®¤è®¾ç½®\n");
 		return -1;
 	}
 
@@ -124,7 +124,7 @@ double input_f(char *name, int min, int max) {
 			return size;
 		}
 		else {
-			printf("\aÊäÈëÖµ´óÓÚ¹æ¶¨Öµ\n");
+			printf("\aè¾“å…¥å€¼å¤§äºè§„å®šå€¼\n");
 			fflush(stdin);
 
 			return input_f(name, min, max);
@@ -132,7 +132,7 @@ double input_f(char *name, int min, int max) {
 	}
 }
 
-//Í¼ĞÎ°æ±¾³õÊ¼»¯ 
+//å›¾å½¢ç‰ˆæœ¬åˆå§‹åŒ– 
 void initial_graph(void)
 {
 	IMAGE temp[3];
@@ -195,7 +195,7 @@ void initial_graph(void)
 	loadimage(&imgr, _T("red.jpg"));
 }
 
-//ÈË¹¤ÊäÈë
+//äººå·¥è¾“å…¥
 void initial_input(void)
 {
 	int a = 0;
@@ -203,59 +203,59 @@ void initial_input(void)
 	int temp_i, temp_direction;
 	double temp_f;
 
-	a = (( temp_i = input_i("ÇëÑ¡ÔñÊÇ·ñÈË¹¤ÊäÈë³õÊ¼Êı¾İ(ÈË¹¤ÊäÈëÇëÊäÈë1, Ä¬ÈÏÉèÖÃÊäÈë0)", 0, 1)) == -1 ? 0 : temp_i);
+	a = (( temp_i = input_i("è¯·é€‰æ‹©æ˜¯å¦äººå·¥è¾“å…¥åˆå§‹æ•°æ®(äººå·¥è¾“å…¥è¯·è¾“å…¥1, é»˜è®¤è®¾ç½®è¾“å…¥0)", 0, 1)) == -1 ? 0 : temp_i);
 	while (a)
 	{
 		int i;
 
-		printf("ÇëÊäÈë³õÊ¼»¯µÄ³µÁ¾(A/B/C):");
+		printf("è¯·è¾“å…¥åˆå§‹åŒ–çš„è½¦è¾†(A/B/C):");
 		getchar();
 		scanf("%c", &t);
 		i = (int)t - 'A';
 
 		if (i > NUM_TRAIN - 1 || i < 0)
 		{
-			printf("ÊäÈë´íÎó,ÇëÖØĞÂÊäÈë\n");
+			printf("è¾“å…¥é”™è¯¯,è¯·é‡æ–°è¾“å…¥\n");
 			continue;
 		}
 
-		temp_direction = input_i("[»ğ³µ·½Ïò]:0 ´ú±íË³Ê±Õë; 1 ´ú±íÄæÊ±Õë", 0, 1);
+		temp_direction = input_i("[ç«è½¦æ–¹å‘]:0 ä»£è¡¨é¡ºæ—¶é’ˆ; 1 ä»£è¡¨é€†æ—¶é’ˆ", 0, 1);
 		if (temp_direction != -1)
 			train[i]->last_direction[0] = setDirection(train[i]->direction, train[i]->x[0], train[i]->y[0], train[i]->track);
 
-		start_train[i] = ((temp_i = input_i("[»ğ³µÆô¶¯Ê±¼ä]", 0, 15)) == -1 ? start_train[i] : temp_i);
+		start_train[i] = ((temp_i = input_i("[ç«è½¦å¯åŠ¨æ—¶é—´]", 0, 15)) == -1 ? start_train[i] : temp_i);
 
-		train[i]->type = ((temp_i = input_i("[»ğ³µÀàĞÍ]:0 ´ú±í¿ì³µ; 1 ´ú±íÂı³µ", 0, 1)) == -1 ? train[i]->type : temp_i);
-		train[i]->speed = ((temp_f = input_f("[»ğ³µÔËĞĞËÙ¶È]", 0.0, 5.0)) == 0 ? train[i]->speed : temp_f);
+		train[i]->type = ((temp_i = input_i("[ç«è½¦ç±»å‹]:0 ä»£è¡¨å¿«è½¦; 1 ä»£è¡¨æ…¢è½¦", 0, 1)) == -1 ? train[i]->type : temp_i);
+		train[i]->speed = ((temp_f = input_f("[ç«è½¦è¿è¡Œé€Ÿåº¦]", 0.0, 5.0)) == 0 ? train[i]->speed : temp_f);
 
 		switch (i)
 		{
 		case 0:
-			train[i]->y[0] = ((temp_f = input_f("[»ğ³µÎ»ÖÃ]:×İ×ø±êy", 1, 6)) == -1 ? train[i]->y[0] : temp_f);
+			train[i]->y[0] = ((temp_f = input_f("[ç«è½¦ä½ç½®]:çºµåæ ‡y", 1, 6)) == -1 ? train[i]->y[0] : temp_f);
 			if ((int)train[i]->y[0] == 1 || (int)train[i]->y[0] == 6)
-				train[i]->x[0] = ((temp_f = input_f("[»ğ³µÎ»ÖÃ]:ºá×ø±êx", 1, probe[0]->x)) == -1 ? train[i]->x[0] : temp_f);
+				train[i]->x[0] = ((temp_f = input_f("[ç«è½¦ä½ç½®]:æ¨ªåæ ‡x", 1, probe[0]->x)) == -1 ? train[i]->x[0] : temp_f);
 			else
-				train[i]->x[0] = ((temp_f = input_f("[»ğ³µÎ»ÖÃ]:ºá×ø±êx", 1, 1)) == -1 ? train[i]->x[0] : temp_f);
+				train[i]->x[0] = ((temp_f = input_f("[ç«è½¦ä½ç½®]:æ¨ªåæ ‡x", 1, 1)) == -1 ? train[i]->x[0] : temp_f);
 			break;
 
 		default:
-			train[i]->y[0] = ((temp_f = input_f("[»ğ³µÎ»ÖÃ]:×İ×ø±êy", 1, 6)) == -1 ? train[i]->y[0] : temp_f);
+			train[i]->y[0] = ((temp_f = input_f("[ç«è½¦ä½ç½®]:çºµåæ ‡y", 1, 6)) == -1 ? train[i]->y[0] : temp_f);
 			if ((int)train[i]->y[0] == 1 || (int)train[i]->y[0] == 6)
-				train[i]->x[0] = ((temp_f = input_f("[»ğ³µÎ»ÖÃ]:ºá×ø±êx", probe[1]->x, 11)) == -1 ? train[i]->x[0] : temp_f);
+				train[i]->x[0] = ((temp_f = input_f("[ç«è½¦ä½ç½®]:æ¨ªåæ ‡x", probe[1]->x, 11)) == -1 ? train[i]->x[0] : temp_f);
 			else
-				train[i]->x[0] = ((temp_f = input_f("[»ğ³µÎ»ÖÃ]:ºá×ø±êx", 11, 11)) == -1 ? train[i]->x[0] : temp_f);
+				train[i]->x[0] = ((temp_f = input_f("[ç«è½¦ä½ç½®]:æ¨ªåæ ‡x", 11, 11)) == -1 ? train[i]->x[0] : temp_f);
 			break;
 		}
 
-		a = ((temp_i = input_i("Èô³õÊ¼»¯ÆäËû³µÁ¾,ÇëÊäÈë1,·ñÔòÊäÈë0", 0, 1)) == -1 ? 0 : temp_i);
+		a = ((temp_i = input_i("è‹¥åˆå§‹åŒ–å…¶ä»–è½¦è¾†,è¯·è¾“å…¥1,å¦åˆ™è¾“å…¥0", 0, 1)) == -1 ? 0 : temp_i);
 	}
 	Sleep(1000);
 }
 
-//°´ÎÄ¼ş³õÊ¼»¯
+//æŒ‰æ–‡ä»¶åˆå§‹åŒ–
 void initial_file(void)
 {
-	//Çå¿ÕÖ®Ç°ÎÄ¼şÖĞµÄÊı¾İ
+	//æ¸…ç©ºä¹‹å‰æ–‡ä»¶ä¸­çš„æ•°æ®
 	FILE *fp1;
 	fp1 = fopen("record_regular.txt", "w");
 	fclose(fp1);
@@ -263,10 +263,10 @@ void initial_file(void)
 	fp2 = fopen("record_irregular.txt", "w");
 	fclose(fp2);
 
-	//³õÊ¼»¯¸÷¸öÖµ
+	//åˆå§‹åŒ–å„ä¸ªå€¼
 	FILE *fp_train, *fp_probe, *fp_station, *fp_map;
 
-	//³õÊ¼»¯»ğ³µ
+	//åˆå§‹åŒ–ç«è½¦
 	if ((fp_train = fopen("initial_train.txt", "r")) == NULL)
 		printf("File open fail\n");
 	for (int i = 0; i < NUM_TRAIN; i++) {
@@ -279,7 +279,7 @@ void initial_file(void)
 	}
 	fclose(fp_train);
 
-	//³õÊ¼»¯Ì½²âµã
+	//åˆå§‹åŒ–æ¢æµ‹ç‚¹
 	if ((fp_probe = fopen("initial_probe.txt", "r")) == NULL)
 		printf("File open fail\n");
 	for (int i = 0; i < NUM_PUBLICTRACK * 4; i++)
@@ -291,7 +291,7 @@ void initial_file(void)
 	}
 	fclose(fp_probe);
 
-	//³õÊ¼»¯Õ¾Ì¨
+	//åˆå§‹åŒ–ç«™å°
 	if ((fp_station = fopen("initial_station.txt", "r")) == NULL)
 		printf("File open fail\n");
 	for (int i = 0; i < NUM_STATION; i++)
@@ -302,7 +302,7 @@ void initial_file(void)
 	}
 	fclose(fp_probe);
 
-	//³õÊ¼»¯µØÍ¼
+	//åˆå§‹åŒ–åœ°å›¾
 	if ((fp_map = fopen("initial_map.txt", "r")) == NULL)
 		printf("File open fail\n");
 	for (int i = 0; i < 8; i++)
@@ -310,7 +310,7 @@ void initial_file(void)
 			fscanf(fp_map, "%d", &Map[i][j]);
 	fclose(fp_map);
 
-	//³õÊ¼»¯¹«¹²¹ìµÀ
+	//åˆå§‹åŒ–å…¬å…±è½¨é“
 	for (int i = 0; i < NUM_PUBLICTRACK; i++)
 	{
 		publicTrain[i] = (Train*)malloc(sizeof(Train));
@@ -320,7 +320,7 @@ void initial_file(void)
 	}
 }
 
-//³õÊ¼»¯·½Ïò
+//åˆå§‹åŒ–æ–¹å‘
 int setDirection(int wise, double x, double y, int track)
 {
 	if (wise == CLOCKWISE)
@@ -435,26 +435,26 @@ int setDirection(int wise, double x, double y, int track)
 	}
 }
 
-//×Üº¯Êı
+//æ€»å‡½æ•°
 void initial(void)
 {
 	int temp_i = 0;
-	x = ((temp_i = input_i("ÇëÑ¡ÔñÃüÁîĞĞ°æ±¾»òÕßÍ¼ĞÎ°æ±¾(Í¼ĞÎ°æ±¾ÇëÊäÈë1, ÃüÁîĞĞÊäÈë0)", 0, 1)) == -1 ? 0 : temp_i);
+	x = ((temp_i = input_i("è¯·é€‰æ‹©å‘½ä»¤è¡Œç‰ˆæœ¬æˆ–è€…å›¾å½¢ç‰ˆæœ¬(å›¾å½¢ç‰ˆæœ¬è¯·è¾“å…¥1, å‘½ä»¤è¡Œè¾“å…¥0)", 0, 1)) == -1 ? 0 : temp_i);
 
-	//ÎÄ¼ş³õÊ¼»¯
+	//æ–‡ä»¶åˆå§‹åŒ–
 	initial_file();
 
-	//ÈË¹¤³õÊ¼»¯
+	//äººå·¥åˆå§‹åŒ–
 	initial_input();
 	
 	for (int i = 0; i < NUM_TRAIN; i++)
 		setMoreCarriage(train[i]);
 
-	//Í¼Ïñ³õÊ¼»¯
+	//å›¾åƒåˆå§‹åŒ–
 	if (x == 1)
 		initial_graph();
 
-	//°´Ãë¼ÆËã³õÊ¼»¯Ê±¼ä
+	//æŒ‰ç§’è®¡ç®—åˆå§‹åŒ–æ—¶é—´
 	for (int i = 0; i < NUM_TRAIN; i++)
 		start_train[i] *= CLOCKS_PER_SEC;
 }
