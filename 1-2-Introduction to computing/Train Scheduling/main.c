@@ -1,4 +1,4 @@
-// main.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// main.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -9,14 +9,14 @@ HANDLE thread[6];
 ///*
 void main()
 {
-	//Çå¿Õ¼ÇÂ¼ÎÄ¼ş
+	//æ¸…ç©ºè®°å½•æ–‡ä»¶
 	FILE *fp;
 	fp = fopen("record_regular.txt", "w");
 	fclose(fp);
 	fp = fopen("record_irregular.txt", "w");
 	fclose(fp);
 
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
 	initial();
 
 	thread[0] = (HANDLE)_beginthreadex(NULL, 0, move, NULL, 0, NULL);
