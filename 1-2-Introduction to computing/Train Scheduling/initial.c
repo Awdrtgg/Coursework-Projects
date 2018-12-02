@@ -435,7 +435,6 @@ int setDirection(int wise, double x, double y, int track)
 	}
 }
 
-//总函数
 void initial(void)
 {
 	int temp_i = 0;
