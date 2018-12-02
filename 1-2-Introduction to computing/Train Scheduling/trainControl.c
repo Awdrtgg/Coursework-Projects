@@ -631,11 +631,9 @@ unsigned __stdcall move(void* pArgumemt)
 			}
 		}
 
-		//命令行版本
+		// CLI
 		else
 			Sleep(2000);
 		
 	}
-//	_endthreadex(0);
-//	return 0;
 }
