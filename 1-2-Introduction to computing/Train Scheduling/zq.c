@@ -7,29 +7,29 @@ LOGFONT textstyle3 = { 15,8,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 IMAGE imgg, imgr;
 
 int selecttrain = 0;
-time_t station_time[NUM_STATION];	//Õ¾Ì¨µÄÍ£¿¿Ê±¼ä
+time_t station_time[NUM_STATION];	//ç«™å°çš„åœé æ—¶é—´
 
-MOUSEMSG u;	//È«¾ÖÊó±ê
+MOUSEMSG u;	//å…¨å±€é¼ æ ‡
 
 void drawbutton()
 {
 
 	settextstyle(&textstyle1);
 	settextcolor(RGB(8,87,107));
-	setbkmode(TRANSPARENT);//Í¸Ã÷´ò×Ö
+	setbkmode(TRANSPARENT);//é€æ˜æ‰“å­—
 	if(selecttrain ==0)settextcolor(RGB(117,12,156));outtextxy(70, 144, 'A');settextcolor(RGB(41,94,173));
 	if(selecttrain ==1)settextcolor(RGB(117,12,156));outtextxy(70, 335, 'B');settextcolor(RGB(41,94,173));
 	if(selecttrain ==2)settextcolor(RGB(117,12,156));outtextxy(70, 520, 'C');settextcolor(RGB(41,94,173));
 	settextcolor(RGB(8,87,107));
-	outtextxy(1450, 140, _T("¼ÓËÙ"));
-	outtextxy(1450, 290, _T("¼õËÙ"));
-	outtextxy(1450, 440, _T("»»¹ì"));
-	outtextxy(1450, 580, _T("µôÍ·"));
+	outtextxy(1450, 140, _T("åŠ é€Ÿ"));
+	outtextxy(1450, 290, _T("å‡é€Ÿ"));
+	outtextxy(1450, 440, _T("æ¢è½¨"));
+	outtextxy(1450, 580, _T("æ‰å¤´"));
 	settextstyle(&textstyle2);
 	settextcolor(RGB(8,87,107));
-	if(strategy[0]==MAN_COMMAND)settextcolor(RGB(117,12,156));outtextxy(255, 740, _T("ÈË¹¤¿ØÖÆ"));settextcolor(RGB(8,87,107));
-	if(strategy[0]==TURN_BY_TURN)settextcolor(RGB(117,12,156));outtextxy(655, 740, _T("½»Ìæ²ßÂÔ"));settextcolor(RGB(8,87,107));
-	if(strategy[0]==FAST_FIRST)settextcolor(RGB(117,12,156));outtextxy(1055, 740, _T("¿ì³µÏÈĞĞ"));settextcolor(RGB(8,87,107));
+	if(strategy[0]==MAN_COMMAND)settextcolor(RGB(117,12,156));outtextxy(255, 740, _T("äººå·¥æ§åˆ¶"));settextcolor(RGB(8,87,107));
+	if(strategy[0]==TURN_BY_TURN)settextcolor(RGB(117,12,156));outtextxy(655, 740, _T("äº¤æ›¿ç­–ç•¥"));settextcolor(RGB(8,87,107));
+	if(strategy[0]==FAST_FIRST)settextcolor(RGB(117,12,156));outtextxy(1055, 740, _T("å¿«è½¦å…ˆè¡Œ"));settextcolor(RGB(8,87,107));
 }
 
 void manselect(Train* train1,Train* train2)
@@ -115,7 +115,7 @@ void manselect(Train* train1,Train* train2)
 	drawtrainmsg();
 }
 
-void ftoch(double a, char ch[4])        //double×ª»»³É×Ö·û´®
+void ftoch(double a, char ch[4])        //doubleè½¬æ¢æˆå­—ç¬¦ä¸²
 {
 	ch[0] = (int)a + '0';
 	ch[1] = '.';
@@ -123,7 +123,7 @@ void ftoch(double a, char ch[4])        //double×ª»»³É×Ö·û´®
 	ch[3] = '\0';
 }
 
-void inttoch(int a, char ch[])      //int×ª»¯³É×Ö·û´®
+void inttoch(int a, char ch[])      //intè½¬åŒ–æˆå­—ç¬¦ä¸²
 {
 
 	int b = a, i = 0, j;
@@ -142,7 +142,7 @@ void inttoch(int a, char ch[])      //int×ª»¯³É×Ö·û´®
 	ch[i + 2] = '\0';
 }
 
-void printstring(char *ch,int x,int y,int n)    //ÔÚÍ¼ĞÎ»¯½çÃæÊä³ö×Ö·û´®   ×Ö·û´®£¬ºá¡¢×İ×ø±ê£¬×ÖÌåÀàĞÍ
+void printstring(char *ch,int x,int y,int n)    //åœ¨å›¾å½¢åŒ–ç•Œé¢è¾“å‡ºå­—ç¬¦ä¸²   å­—ç¬¦ä¸²ï¼Œæ¨ªã€çºµåæ ‡ï¼Œå­—ä½“ç±»å‹
 {
 	while(*ch!='\0')
 	{
@@ -216,7 +216,7 @@ void drawtrainmsg()
 	//setbkmode(TRANSPARENT);
 	//int x = 180, y = 0;
 	//setorigin(x, y);
-	char ch[4], ch1[10], ch2[10];  // ËÙ¶È£¬Ê£ÓàÊ±¼ä£¬µ±Ç°Ê±¼ä
+	char ch[4], ch1[10], ch2[10];  // é€Ÿåº¦ï¼Œå‰©ä½™æ—¶é—´ï¼Œå½“å‰æ—¶é—´
 	//gcvt(start_train[0]-now+finish_initial,1,NULL
 	for (int i = 0; i<NUM_TRAIN; i++)
 	{
@@ -225,13 +225,13 @@ void drawtrainmsg()
 		inttoch((int)(start_train[i] - now1 + finish_initial) / CLOCKS_PER_SEC, ch1);
 		switch (i)
 		{
-		case 0:if ((start_train[0] - now1 + finish_initial)>0) { outtextxy(300, 60, _T("Ê£ÓàÊ±¼ä£º"));printstring(ch1,375,  60,3 ); putimage(220, 0, &imga1); }
+		case 0:if ((start_train[0] - now1 + finish_initial)>0) { outtextxy(300, 60, _T("å‰©ä½™æ—¶é—´ï¼š"));printstring(ch1,375,  60,3 ); putimage(220, 0, &imga1); }
 			   else { putimage(220, 0, &imga2); }
 			   break;
-		case 1:if ((start_train[1] - now1 + finish_initial)>0) { outtextxy(680, 60, _T("Ê£ÓàÊ±¼ä£º")); printstring(ch1,755, 60,3); putimage(600,0, &imga1); }
+		case 1:if ((start_train[1] - now1 + finish_initial)>0) { outtextxy(680, 60, _T("å‰©ä½™æ—¶é—´ï¼š")); printstring(ch1,755, 60,3); putimage(600,0, &imga1); }
 			   else { putimage(600, 0, &imgb2); }
 			   break;
-		case 2:if ((start_train[2] - now1 + finish_initial)>0) { outtextxy(1060,60, _T("Ê£ÓàÊ±¼ä£º")); printstring(ch1,1130, 60,3); putimage(980, 0, &imgc1); }
+		case 2:if ((start_train[2] - now1 + finish_initial)>0) { outtextxy(1060,60, _T("å‰©ä½™æ—¶é—´ï¼š")); printstring(ch1,1130, 60,3); putimage(980, 0, &imgc1); }
 			   else { putimage(980, 0, &imgc2); }
 			   break;
 		}
@@ -239,23 +239,23 @@ void drawtrainmsg()
 		settextcolor(RGB(74,135,243));
 		settextstyle(&textstyle2);
 		inttoch((int)((now1 - finish_initial) / (double)CLOCKS_PER_SEC), ch2);
-		outtextxy(40,10, _T("µ±Ç°Ê±¼ä")); printstring(ch2,60, 40,2);
+		outtextxy(40,10, _T("å½“å‰æ—¶é—´")); printstring(ch2,60, 40,2);
 
 		settextcolor(WHITE);
 		settextstyle(&textstyle3);
 		ftoch(train[i]->speed, ch);
 		outtextxy(i * 380 +300, 0, _T("Name:")); outtextxy(i * 380 + 370, 0, i + 'A');
-		//outtextxy(i*400+100+x,20+y,"Type:");outtextxy(i*400+160+x,20+y,(train[i]->type=FAST) ? "¿ì³µ" : "Âı³µ");
+		//outtextxy(i*400+100+x,20+y,"Type:");outtextxy(i*400+160+x,20+y,(train[i]->type=FAST) ? "å¿«è½¦" : "æ…¢è½¦");
 		
 		switch (train[i]->state)
 		{
-		case RUN:outtextxy(i * 380+300, 40 , _T("State:Õı³£ĞĞÊ»")); outtextxy(i * 380 +300, 20, _T("Speed:")); printstring( ch,i * 380 +365, 20,3); break;
-		case STOP_EMERGENCY:outtextxy(i * 380 +300, 40 , _T("State:½ô¼±Í£¿¿")); outtextxy(i * 380 +300, 20 , _T("Speed:     0")); break;
-		case STOP_PROBE:outtextxy(i * 380 +300, 40 , _T("State:µÈ´ı½øÈë¹«¹²¹ìµÀ")); outtextxy(i * 380 +300, 20 , _T("Speed:     0")); break;
-		case STOP_STATION:outtextxy(i * 380 +300, 40 , _T("State:Õ¾Ì¨Í£¿¿")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
-		case STOP_MANCONTROL:outtextxy(i * 380 +300, 40, _T("State:ÈË¹¤Í£¿¿")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
-		case STOP_START:outtextxy(i * 380 +300, 40 , _T("State:ÉĞÎ´Æô¶¯")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
-		case CRASH:outtextxy(i * 380 +300, 40 , _T("State:·¢ÉúÊÂ¹Ê")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
+		case RUN:outtextxy(i * 380+300, 40 , _T("State:æ­£å¸¸è¡Œé©¶")); outtextxy(i * 380 +300, 20, _T("Speed:")); printstring( ch,i * 380 +365, 20,3); break;
+		case STOP_EMERGENCY:outtextxy(i * 380 +300, 40 , _T("State:ç´§æ€¥åœé ")); outtextxy(i * 380 +300, 20 , _T("Speed:     0")); break;
+		case STOP_PROBE:outtextxy(i * 380 +300, 40 , _T("State:ç­‰å¾…è¿›å…¥å…¬å…±è½¨é“")); outtextxy(i * 380 +300, 20 , _T("Speed:     0")); break;
+		case STOP_STATION:outtextxy(i * 380 +300, 40 , _T("State:ç«™å°åœé ")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
+		case STOP_MANCONTROL:outtextxy(i * 380 +300, 40, _T("State:äººå·¥åœé ")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
+		case STOP_START:outtextxy(i * 380 +300, 40 , _T("State:å°šæœªå¯åŠ¨")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
+		case CRASH:outtextxy(i * 380 +300, 40 , _T("State:å‘ç”Ÿäº‹æ•…")); outtextxy(i * 380 +300, 20, _T("Speed:     0")); break;
 		}
 	}
 	//EndBatchDraw();
@@ -357,45 +357,45 @@ void changes(MOUSEMSG u)
 
 	if (u.mkLButton)
 	{
-		// ¸Ä±ä¿ØÖÆ²ßÂÔ
+		// æ”¹å˜æ§åˆ¶ç­–ç•¥
 		if ((u.y >= 695) && (u.y <= 800) && (u.x >= 230) && (u.x <= 375))
 		{
 			strategy[0] = MAN_COMMAND;
 			settextstyle(&textstyle2);
 			settextcolor(RGB(117,12,156));
-			outtextxy(255, 740, _T("ÈË¹¤¿ØÖÆ"));
+			outtextxy(255, 740, _T("äººå·¥æ§åˆ¶"));
 			settextcolor(RGB(8,87,107));
-			outtextxy(655, 740, _T("½»Ìæ²ßÂÔ"));
-			outtextxy(1055, 740, _T("¿ì³µÏÈĞĞ"));
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:¹ìµÀ%d²ßÂÔ¸Ä±äÎªÈË¹¤¿ØÖÆ\n\n", 0 + 1);
+			outtextxy(655, 740, _T("äº¤æ›¿ç­–ç•¥"));
+			outtextxy(1055, 740, _T("å¿«è½¦å…ˆè¡Œ"));
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:è½¨é“%dç­–ç•¥æ”¹å˜ä¸ºäººå·¥æ§åˆ¶\n\n", 0 + 1);
 		}
 		else if ((u.y >= 695) && (u.y <= 800) && (u.x >= 630) && (u.x <= 775))
 		{
 			strategy[0] = TURN_BY_TURN;
 			settextstyle(&textstyle2);
 			settextcolor(RGB(117,12,156));
-			outtextxy(655, 740, _T("½»Ìæ²ßÂÔ"));
+			outtextxy(655, 740, _T("äº¤æ›¿ç­–ç•¥"));
 			settextcolor(RGB(8,87,107));
-			outtextxy(255, 740, _T("ÈË¹¤¿ØÖÆ"));
-			outtextxy(1055, 740, _T("¿ì³µÏÈĞĞ"));
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:¹ìµÀ%d²ßÂÔ¸Ä±äÎª½»Ìæ²ßÂÔ\n\n", 0 + 1);
+			outtextxy(255, 740, _T("äººå·¥æ§åˆ¶"));
+			outtextxy(1055, 740, _T("å¿«è½¦å…ˆè¡Œ"));
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:è½¨é“%dç­–ç•¥æ”¹å˜ä¸ºäº¤æ›¿ç­–ç•¥\n\n", 0 + 1);
 		}
 		else if ((u.y >= 695) && (u.y <= 800) && (u.x >= 1030) && (u.x <= 1175))
 		{
 			strategy[0] = FAST_FIRST;
 			settextstyle(&textstyle2);
 			settextcolor(RGB(117,12,156));
-			outtextxy(1055, 740, _T("¿ì³µÏÈĞĞ"));
+			outtextxy(1055, 740, _T("å¿«è½¦å…ˆè¡Œ"));
 			settextcolor(RGB(8,87,107));
-			outtextxy(255, 740, _T("ÈË¹¤¿ØÖÆ"));
-			outtextxy(655, 740, _T("½»Ìæ²ßÂÔ"));
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:¹ìµÀ%d²ßÂÔ¸Ä±äÎª¿ì³µÏÈĞĞ\n\n", 0 + 1);
+			outtextxy(255, 740, _T("äººå·¥æ§åˆ¶"));
+			outtextxy(655, 740, _T("äº¤æ›¿ç­–ç•¥"));
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:è½¨é“%dç­–ç•¥æ”¹å˜ä¸ºå¿«è½¦å…ˆè¡Œ\n\n", 0 + 1);
 		}
 		
-		//Ñ¡ÔñA,B,C³µ
+		//é€‰æ‹©A,B,Cè½¦
 		if ((u.x >= 35) && (u.x <= 125) && (u.y >= 135) && (u.y <= 205))
 		{
 			selecttrain = 0;
@@ -428,38 +428,38 @@ void changes(MOUSEMSG u)
 			selecttrain = 2;
 		}
 
-		//µã³µÍ£Ö¹/Æô¶¯
+		//ç‚¹è½¦åœæ­¢/å¯åŠ¨
 		for (int i = 0; i < NUM_TRAIN; i++) {
 			if (u.x >= T[i].x && u.x <= (T[i].x + 100) && u.y >= T[i].y && u.y <= (T[i].y + 100)) {
 				if (train[i]->state == RUN) {
 					train[i]->state = STOP_MANCONTROL;
-					fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-					fprintf(fp, "ÊÂ¼ş:ÈË¹¤Í£Ö¹»ğ³µ%c\n", selecttrain + 'A');
+					fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+					fprintf(fp, "äº‹ä»¶:äººå·¥åœæ­¢ç«è½¦%c\n", selecttrain + 'A');
 				}
 				else if (train[i]->state == STOP_MANCONTROL) {
 					train[i]->state = RUN;
-					fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-					fprintf(fp, "ÊÂ¼ş:ÈË¹¤Æô¶¯»ğ³µ%c\n", selecttrain + 'A');
+					fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+					fprintf(fp, "äº‹ä»¶:äººå·¥å¯åŠ¨ç«è½¦%c\n", selecttrain + 'A');
 				}
 			}
 		}
 	}
 	else;
 
-	//¸Ä±ä»ğ³µ×´Ì¬
+	//æ”¹å˜ç«è½¦çŠ¶æ€
 	int flag = 0;
 	if ((u.x >= 1430) && (u.x <= 1600) && (u.y >= 100) && (u.y <= 200))
 	{
 		//settextstyle(&textstyle1);
 		settextcolor(RGB(117,12,156));
 		settextstyle(&textstyle1);
-		outtextxy(1450, 140, _T("¼ÓËÙ"));
+		outtextxy(1450, 140, _T("åŠ é€Ÿ"));
 		flag = 1;
 		if (u.mkLButton)
 		{
 			acceleration[selecttrain] += 1.0;
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:»ğ³µ%c¼ÓËÙ\n\n", selecttrain + 'A');
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:ç«è½¦%cåŠ é€Ÿ\n\n", selecttrain + 'A');
 		}
 	}
 	else if ((u.x >= 1430) && (u.x <= 1600) && (u.y >= 250) && (u.y <= 350))
@@ -467,13 +467,13 @@ void changes(MOUSEMSG u)
 		//settextstyle(&textstyle1);
 		settextcolor(RGB(117,12,156));
 		settextstyle(&textstyle1);
-		outtextxy(1450, 290, _T("¼õËÙ"));
+		outtextxy(1450, 290, _T("å‡é€Ÿ"));
 		flag = 1;
 		if (u.mkLButton)
 		{
 			acceleration[selecttrain] -= 1.0;
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:»ğ³µ%c¼õËÙ\n\n", selecttrain + 'A');
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:ç«è½¦%cå‡é€Ÿ\n\n", selecttrain + 'A');
 		}
 	}
 	else if ((u.x >= 1430) && (u.x <= 1600) && (u.y >= 400) && (u.y <= 495))
@@ -481,13 +481,13 @@ void changes(MOUSEMSG u)
 		//settextstyle(&textstyle1);
 		settextcolor(RGB(117,12,156));
 		settextstyle(&textstyle1);
-		outtextxy(1450, 440, _T("»»¹ì"));
+		outtextxy(1450, 440, _T("æ¢è½¨"));
 		flag = 1;
 		if (u.mkLButton)
 		{
 			tct[selecttrain] = 1;
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:»ğ³µ%c±ä¹ì\n\n", selecttrain + 'A');
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:ç«è½¦%cå˜è½¨\n\n", selecttrain + 'A');
 		}
 	}
 	else if ((u.x >= 1430) && (u.x <= 1600) && (u.y >= 540) && (u.y <= 640))
@@ -495,13 +495,13 @@ void changes(MOUSEMSG u)
 		//settextstyle(&textstyle1);
 		settextcolor(RGB(117,12,156));
 		settextstyle(&textstyle1);
-		outtextxy(1450, 580, _T("µôÍ·"));
+		outtextxy(1450, 580, _T("æ‰å¤´"));
 		flag = 1;
 		if (u.mkLButton)
 		{
 			turnaround[selecttrain] = 1;
-			fprintf(fp, "µ±Ç°Ê±¼ä:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
-			fprintf(fp, "ÊÂ¼ş:»ğ³µ%cµôÍ·\n\n", selecttrain + 'A');
+			fprintf(fp, "å½“å‰æ—¶é—´:%4.1f\n", (double)(now - finish_initial) / CLOCKS_PER_SEC);
+			fprintf(fp, "äº‹ä»¶:ç«è½¦%cæ‰å¤´\n\n", selecttrain + 'A');
 		}
 	}
 	else if(flag==1)
@@ -509,10 +509,10 @@ void changes(MOUSEMSG u)
 		//settextstyle(&textstyle1);
 		settextcolor(RGB(8,87,107));
 		settextstyle(&textstyle1);
-		outtextxy(1450, 140, _T("¼ÓËÙ"));
-		outtextxy(1450, 290, _T("¼õËÙ"));
-		outtextxy(1450, 440, _T("»»¹ì"));
-		outtextxy(1450, 580, _T("µôÍ·"));
+		outtextxy(1450, 140, _T("åŠ é€Ÿ"));
+		outtextxy(1450, 290, _T("å‡é€Ÿ"));
+		outtextxy(1450, 440, _T("æ¢è½¨"));
+		outtextxy(1450, 580, _T("æ‰å¤´"));
 		flag = 0;
 	}
 	else;
