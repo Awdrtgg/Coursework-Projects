@@ -1,21 +1,21 @@
 #include "stdafx.h"
 #include "train.h"
 
-extern Train *ing_train[NUM_PUBLICTRACK*4];	//×¼±¸½øÈë¹«¹²¹ìµÀµÄ»ğ³µ
-int flag = 0;	//»ğ³µ×´Ì¬ÊÇ·ñ¸Ä±ä
-int ing_station[NUM_TRAIN];	//»ğ³µÕıÔÚÊ¹ÓÃµÄÕ¾Ì¨
+extern Train *ing_train[NUM_PUBLICTRACK*4];	//å‡†å¤‡è¿›å…¥å…¬å…±è½¨é“çš„ç«è½¦
+int flag = 0;	//ç«è½¦çŠ¶æ€æ˜¯å¦æ”¹å˜
+int ing_station[NUM_TRAIN];	//ç«è½¦æ­£åœ¨ä½¿ç”¨çš„ç«™å°
 int flag_station = 0, flag_imergency = 0, flag_probe = 0;
-double acceleration[NUM_TRAIN];	//»ğ³µ¼ÓËÙ¶È
-extern Train *publicTrain[NUM_PUBLICTRACK];	//¹«¹²¹ìµÀµÄ»ğ³µ
-int tct[NUM_TRAIN];	//»»¹ì
-int turnaround[NUM_TRAIN] = { 0, 0, 0 };	//µôÍ·
+double acceleration[NUM_TRAIN];	//ç«è½¦åŠ é€Ÿåº¦
+extern Train *publicTrain[NUM_PUBLICTRACK];	//å…¬å…±è½¨é“çš„ç«è½¦
+int tct[NUM_TRAIN];	//æ¢è½¨
+int turnaround[NUM_TRAIN] = { 0, 0, 0 };	//æ‰å¤´
 
-int init_direction[NUM_TRAIN*LENGTH];	//¿ªÊ¼·½Ïò
-double init_displacement[NUM_TRAIN*LENGTH];	//¿ªÊ¼Î»ÒÆ
-int last_dir[NUM_TRAIN*LENGTH];	//½áÊø·½Ïò
-double last_displacement[NUM_TRAIN*LENGTH];	//½áÊøÎ»ÒÆ
+int init_direction[NUM_TRAIN*LENGTH];	//å¼€å§‹æ–¹å‘
+double init_displacement[NUM_TRAIN*LENGTH];	//å¼€å§‹ä½ç§»
+int last_dir[NUM_TRAIN*LENGTH];	//ç»“æŸæ–¹å‘
+double last_displacement[NUM_TRAIN*LENGTH];	//ç»“æŸä½ç§»
 
-//³õÊ¼·½Ïò³õÊ¼»¯
+//åˆå§‹æ–¹å‘åˆå§‹åŒ–
 void init_ds(void)
 {
 	for (int i = 0; i < NUM_TRAIN; i++)
@@ -28,7 +28,7 @@ void init_ds(void)
 		}
 }
 
-//Á½¸öÄ£¿éµÄ·½Ïò×ª»¯
+//ä¸¤ä¸ªæ¨¡å—çš„æ–¹å‘è½¬åŒ–
 int changeDirection(int n)
 {
 	switch (n)
@@ -41,7 +41,7 @@ int changeDirection(int n)
 	}
 }
 
-//Ì½²â·½Ïò
+//æ¢æµ‹æ–¹å‘
 int checkDirection(int n, int x, int y)
 {
 	switch (n)
@@ -54,10 +54,10 @@ int checkDirection(int n, int x, int y)
 	}
 }
 
-//È·¶¨ÏÂÒ»´ÎµÄ·½Ïò
+//ç¡®å®šä¸‹ä¸€æ¬¡çš„æ–¹å‘
 int Direction(Train *strain)
 {
-	//Í·³µÏáÑ°ÕÒÂ·Ïß 
+	//å¤´è½¦å¢å¯»æ‰¾è·¯çº¿ 
 	int i = 0;
 	for (i = 0; i < 4; i++)
 	{
@@ -65,17 +65,17 @@ int Direction(Train *strain)
 			if (i != (strain->last_direction[0] + 2) % 4)
 				return i;
 	}
-	//Î´ÄÜÕÒµ½Â·
+	//æœªèƒ½æ‰¾åˆ°è·¯
 	if (i == 4)
 		strain->state = CRASH;
 	return i;
 }
 
-//»ğ³µÒÆ¶¯
+//ç«è½¦ç§»åŠ¨
 void Move(Train *strain, double speed, int n)
 {
 	int j;
-	//ºóÒ»¸ö³µÏá¸ú×ÅÇ°Ò»¸ö³µÏá×ß 
+	//åä¸€ä¸ªè½¦å¢è·Ÿç€å‰ä¸€ä¸ªè½¦å¢èµ° 
 	for (j = LENGTH - 1; j > 0; j--)
 	{
 		strain->x[j] += strain->last_speed[j - 1] * direction[strain->last_direction[j - 1]][0];
@@ -84,7 +84,7 @@ void Move(Train *strain, double speed, int n)
 		strain->last_direction[j] = strain->last_direction[j - 1];
 		strain->last_speed[j] = strain->last_speed[j - 1];
 
-		//´«µİÊıÖµµÄÔö¼õ
+		//ä¼ é€’æ•°å€¼çš„å¢å‡
 		if (train[n]->last_direction[j] == init_direction[n + 3 * j])
 			init_displacement[n + 3 * j] += strain->last_speed[j - 1];
 		else
@@ -100,7 +100,7 @@ void Move(Train *strain, double speed, int n)
 	strain->last_direction[0] = i;
 	strain->last_speed[0] = speed;
 
-	//´«µİÊıÖµµÄÔö¼õ
+	//ä¼ é€’æ•°å€¼çš„å¢å‡
 	if (train[n]->last_direction[0] == init_direction[n + 3 * 0])
 		init_displacement[n + 3 * j] += speed;
 	else
@@ -108,7 +108,7 @@ void Move(Train *strain, double speed, int n)
 
 }
 
-//±ä¹ì
+//å˜è½¨
 void track_Change(void)
 {
 	for (int i = 0; i < NUM_TRAIN; i++)
@@ -129,17 +129,17 @@ void track_Change(void)
 	}
 }
 
-//²é¿´»ğ³µÇ°·½µÄ°²È«
+//æŸ¥çœ‹ç«è½¦å‰æ–¹çš„å®‰å…¨
 int checkSecurity(Train *strain)
 {
-	//Ñ°ÕÒ·½Ïò
+	//å¯»æ‰¾æ–¹å‘
 	int d;
 	d = Direction(strain);
 
 	for (int i = 0; i < NUM_TRAIN; i++)
 	{
 		if (strain != train[i]) {
-			//Ç°·½ÓĞ³µÁ¾,½ô¼±Í£¿¿
+			//å‰æ–¹æœ‰è½¦è¾†,ç´§æ€¥åœé 
 			for (int j = 0; j < LENGTH; j++)
 			{
 				if ((int)(strain->x[0] + direction[d][0]) == (int)train[i]->x[j])
@@ -152,7 +152,7 @@ int checkSecurity(Train *strain)
 	return strain->state;
 }
 
-//²é¿´Õ¾Ì¨
+//æŸ¥çœ‹ç«™å°
 int checkStation(Train *strain, int n)
 {
 	int i = 0;
@@ -188,23 +188,23 @@ int checkStation(Train *strain, int n)
 	return strain->state;
 }
 
-//²é¿´Ì½²âµã
+//æŸ¥çœ‹æ¢æµ‹ç‚¹
 void checkProbe(Train *strain)
 {
 	for (int j = 0; j < NUM_PUBLICTRACK; j++)
 	{
 		int i = 0;
 		while (i < NUM_PUBLICTRACK * 4) {
-			//Óöµ½Õ¾Ì¨
+			//é‡åˆ°ç«™å°
 			if (probe[i + 4*j]->x == (int)strain->x[0] && probe[i + 4 * j]->y == (int)strain->y[0])
 			{
-				//³ö¹«¹²¹ìµÀ 
+				//å‡ºå…¬å…±è½¨é“ 
 				if (strain == publicTrain[j]) {
 					PublicTrack[j] = BLANK;
 					publicTrain[j] = NULL;
 					probe[0+4*j]->state = GREEN; probe[1+4*j]->state = GREEN; probe[2+4*j]->state = GREEN; probe[3+4*j]->state = GREEN;
 				}
-				//×¼±¸½ø¹«¹²¹ìµÀ
+				//å‡†å¤‡è¿›å…¬å…±è½¨é“
 				else {
 					if (probe[i+4*j] == RED)
 						strain->state = STOP_PROBE;
@@ -217,14 +217,14 @@ void checkProbe(Train *strain)
 			else;
 
 			if (strain == ing_train[i+4*j]) {
-				//×¼±¸½øÈë¹«¹²¹ìµÀ
+				//å‡†å¤‡è¿›å…¥å…¬å…±è½¨é“
 				if (Map[(int)strain->y[0]][(int)strain->x[0]] == PUBLICTRACK)
 				{
 					for (int k = 0; k < NUM_TRAIN; k++)
 						if (strain == train[k])
 							PublicTrack[j] = BLANK + k + 1;
 
-					//½øÈë¹ìµÀÖ®ºó½»»»½»Ìæ²ßÂÔµÄÖµ
+					//è¿›å…¥è½¨é“ä¹‹åäº¤æ¢äº¤æ›¿ç­–ç•¥çš„å€¼
 					if ((ing_train[1+4*j] != NULL && ing_train[0+4*j] != NULL) || (ing_train[1+4*j] != NULL && ing_train[2+4*j] != NULL))
 						turn[j] = !turn[j];
 					else if((ing_train[3 + 4 * j] != NULL && ing_train[0 + 4 * j] != NULL) || (ing_train[3 + 4 * j] != NULL && ing_train[2 + 4 * j] != NULL))
@@ -250,14 +250,14 @@ void checkProbe1(Train *strain)
 		int i = 0;
 		while (i < NUM_PUBLICTRACK * 4) {
 			if (strain == ing_train[i + 4 * j]) {
-				//×¼±¸½øÈë¹«¹²¹ìµÀ
+				//å‡†å¤‡è¿›å…¥å…¬å…±è½¨é“
 				if (Map[(int)strain->y[0]][(int)strain->x[0]] == PUBLICTRACK)
 				{
 					for (int k = 0; k < NUM_TRAIN; k++)
 						if (strain == train[k])
 							PublicTrack[j] = BLANK + k + 1;
 
-					//½øÈë¹ìµÀÖ®ºó½»»»½»Ìæ²ßÂÔµÄÖµ
+					//è¿›å…¥è½¨é“ä¹‹åäº¤æ¢äº¤æ›¿ç­–ç•¥çš„å€¼
 					if ((ing_train[1 + 4 * j] != NULL && ing_train[0 + 4 * j] != NULL) || (ing_train[1 + 4 * j] != NULL && ing_train[2 + 4 * j] != NULL))
 						turn[j] = !turn[j];
 					else if ((ing_train[3 + 4 * j] != NULL && ing_train[0 + 4 * j] != NULL) || (ing_train[3 + 4 * j] != NULL && ing_train[2 + 4 * j] != NULL))
@@ -276,13 +276,13 @@ void checkProbe1(Train *strain)
 	}
 }
 
-//¹«¹²¹ìµÀ¿ØÖÆ
+//å…¬å…±è½¨é“æ§åˆ¶
 void probeControl(void)
 {
-	//¶àÌõ¹«¹²¹ìµÀ
+	//å¤šæ¡å…¬å…±è½¨é“
 	for (int k = 0; k < NUM_PUBLICTRACK; k++)
 	{
-		//¹«¹²¹ìµÀÓĞ³µ 
+		//å…¬å…±è½¨é“æœ‰è½¦ 
 		if (PublicTrack[k] != BLANK)
 		{
 			int i = k * 4;
@@ -299,7 +299,7 @@ void probeControl(void)
 			switch (strategy[k])
 			{
 			case TURN_BY_TURN:
-				//Í¬Ê±ÓĞÁ½Á¾³µ×¼±¸½øÈë¹«¹²¹ìµÀ
+				//åŒæ—¶æœ‰ä¸¤è¾†è½¦å‡†å¤‡è¿›å…¥å…¬å…±è½¨é“
 				for (int i = 1; i < 4; i += 2)
 				{
 					if (ing_train[0 + 4 * k] != NULL && ing_train[i + 4 * k] != NULL) {
@@ -344,7 +344,7 @@ void probeControl(void)
 				}
 
 			case FAST_FIRST:
-				//Í¬Ê±ÓĞÁ½Á¾³µ×¼±¸½øÈë¹«¹²¹ìµÀ
+				//åŒæ—¶æœ‰ä¸¤è¾†è½¦å‡†å¤‡è¿›å…¥å…¬å…±è½¨é“
 				for (int i = 1; i < 4; i += 2)
 				{
 					if (ing_train[0 + 4 * k] != NULL && ing_train[i + 4 * k] != NULL) {
@@ -371,7 +371,7 @@ void probeControl(void)
 					}
 				}
 			}
-			//¹«¹²¹ìµÀ±äÎª¿ÕÏĞ
+			//å…¬å…±è½¨é“å˜ä¸ºç©ºé—²
 			if (flag_probe == 0) {
 				for (int i = 4 * k; i < (NUM_PUBLICTRACK + k) * 4; i++) {
 					if (ing_train[i + 4 * k] != NULL &&ing_train[i + 4 * k]->state == STOP_PROBE) {
@@ -384,13 +384,13 @@ void probeControl(void)
 	}
 }
 
-//»ğ³µÒÆ¶¯
+//ç«è½¦ç§»åŠ¨
 void trainMove(void)
 {
 //	while (1)
 //	{
 		double i;
-		int j;	//»ğ³µµÄ±êºÅ
+		int j;	//ç«è½¦çš„æ ‡å·
 		init_ds();
 
 		for (j = 0; j < NUM_TRAIN; )
@@ -408,14 +408,14 @@ void trainMove(void)
 				while (i > 1.0)
 				{
 					if(!flag_station) 
-						train[j]->state = checkStation(train[j], j);	//¼ì²âÕ¾Ì¨
+						train[j]->state = checkStation(train[j], j);	//æ£€æµ‹ç«™å°
 					flag_station = 0;
 
-					checkProbe(train[j]);							//¼ì²âÌ½²âµã
-					probeControl();									//½»Í¨¹ÜÀí
-					train[j]->state = checkSecurity(train[j]);		//²é¿´°²È«
+					checkProbe(train[j]);							//æ£€æµ‹æ¢æµ‹ç‚¹
+					probeControl();									//äº¤é€šç®¡ç†
+					train[j]->state = checkSecurity(train[j]);		//æŸ¥çœ‹å®‰å…¨
 
-					//ÈçÓĞÇé¿ö·¢Éú
+					//å¦‚æœ‰æƒ…å†µå‘ç”Ÿ
 					if (train[j]->state != RUN) {
 						flag = 1;
 						break;
@@ -426,17 +426,17 @@ void trainMove(void)
 					i -= 1.0;
 					checkProbe1(train[j]);
 				}
-				//ÈçÓĞÇé¿ö·¢Éú,Ìø¹ıÊ£ÏÂµÄĞĞÊ»
+				//å¦‚æœ‰æƒ…å†µå‘ç”Ÿ,è·³è¿‡å‰©ä¸‹çš„è¡Œé©¶
 				if (flag == 1)
 				{
 					flag = 0;
 					break;
 				}
-				//½â¾öÊ£ÓàËÙ¶È
+				//è§£å†³å‰©ä½™é€Ÿåº¦
 				else
 				{
 					if (!flag_station)
-						train[j]->state = checkStation(train[j], j);	//¼ì²âÕ¾Ì¨
+						train[j]->state = checkStation(train[j], j);	//æ£€æµ‹ç«™å°
 					flag_station = 0;
 
 					checkProbe(train[j]);
@@ -488,7 +488,7 @@ void trainMove(void)
 				break;
 
 			case CRASH:
-				printf("ÊÂ¼ş:»ğ³µ%c·¢ÉúÅö×²!", j + 'A');
+				printf("äº‹ä»¶:ç«è½¦%cå‘ç”Ÿç¢°æ’!", j + 'A');
 				Sleep(5000);
 				exit(0);
 				break;
@@ -511,7 +511,7 @@ unsigned __stdcall move(void* pArgumemt)
 
 	while (1)
 	{
-		//µôÍ·
+		//æ‰å¤´
 		for (int i = 0; i < NUM_TRAIN; i++) {
 			if (turnaround[i] != 0) {
 				turnback(train[i]);
@@ -532,7 +532,7 @@ unsigned __stdcall move(void* pArgumemt)
 
 		trainMove();
 
-		//Í¼ĞÎ»¯°æ±¾
+		//å›¾å½¢åŒ–ç‰ˆæœ¬
 		if (x == 1)
 		{
 			for (int i = 0; i < 100; i++)
@@ -552,13 +552,13 @@ unsigned __stdcall move(void* pArgumemt)
 					for (int k = 0; k < LENGTH; k++)
 					{
 
-						//¶¯»­×ªÉí
+						//åŠ¨ç”»è½¬èº«
 						if (init_displacement[j + k * 3] <= 0.00 && last_displacement[j + k * 3] >= 0.00)
 						{
 							Train_Reset(j + k * 3, img[j][changeDirection(train[j]->last_direction[k])], -1);
 						}
 
-						//ÑÓ³õÊ¼·½ÏòÒÆ¶¯
+						//å»¶åˆå§‹æ–¹å‘ç§»åŠ¨
 						if (init_displacement[j + k * 3] > 0.00)
 						{
 							ChangeState(j + k * 3, RUN);
@@ -590,7 +590,7 @@ unsigned __stdcall move(void* pArgumemt)
 
 							init_displacement[j + k * 3] -= train[j]->speed * 0.01;
 						}
-						//ÑÓ±ä¹ìºó·½ÏòÒÆ¶¯
+						//å»¶å˜è½¨åæ–¹å‘ç§»åŠ¨
 						else if(init_displacement[j + k * 3] <= 0.00 && last_displacement[j + k * 3] > 0.00)
 						{
 							ChangeState(j + k * 3, RUN);
@@ -631,7 +631,7 @@ unsigned __stdcall move(void* pArgumemt)
 			}
 		}
 
-		//ÃüÁîĞĞ°æ±¾
+		//å‘½ä»¤è¡Œç‰ˆæœ¬
 		else
 			Sleep(2000);
 		
