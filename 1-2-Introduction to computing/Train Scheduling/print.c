@@ -15,8 +15,6 @@ unsigned int __stdcall Output(void* pArgument)
 
 		if (tf - (double)(int)tf < EXP)
 		{
-//			if(x == 1)
-//				drawtrainmsg();
 			system("CLS");
 
 			//打印当前时间
